@@ -1,0 +1,16 @@
+@mixin selection($background: $orange, $color: $dark_blue) {
+	::-webkit-selection {
+		background: $background;
+		color: $color;
+	}
+
+	::-moz-selection {
+		background: $background;
+		color: $color;
+	}
+
+	::selection {
+		background: $background;
+		color: $color;
+	}
+}

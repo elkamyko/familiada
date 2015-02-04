@@ -1,0 +1,8 @@
+@mixin rgba($prop, $color, $opacity: $default-opacity, $fallback: false) {
+	#{$prop}: if($fallback, $fallback, $color);
+	#{$prop}: rgba($color, $opacity);
+}
+
+@mixin rgba-color($color, $opacity: $default-opacity) {
+	@include rgba(color, $color, $opacity);
+}
