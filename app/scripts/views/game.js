@@ -30,21 +30,24 @@ define([
                 console.log('zadzialalo');
         },
 //		$scene: null,
+        game: null,
 		initialize: function (opts) {
+            this.game = opts.game;
 //            this.$scene = $('#scene');
 //            this.$scene.append(this.$el);
 		},
         windowHanlder: null,
-		render: function () {
-            
+        openWindow: function () {
             if (!this.windowHanlder) {
                 this.windowHanlder = window.open(window.location.href + 'familiada-game');
                 this.windowHanlder.onload = _.bind(function(){
-                                    console.log('window on load');
-                                    $('body', this.windowHanlder.document).append(this.$el);    
-                                }, this);
+                    //console.log('window on load');
+                    $('body', this.windowHanlder.document).append(this.$el);
+                }, this);
             }
-    
+        },
+		render: function () {
+
 			var template = this.getTemplate(),
                     data = {};
 			

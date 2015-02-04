@@ -6,14 +6,16 @@ define([
 	'views/admin',
 	'backbone',
     'underscore',
-	'jquery'
+	'jquery',
+	'window'
 ], function (
 	GameModel,
     GameView,
 	AdminView,
 	Backbone,
     _,
-    $
+    $,
+	window
 ) {
 
 	var FamiliadaView = Backbone.View.extend({
@@ -58,12 +60,8 @@ define([
 		initialize: function (opts) {
             this.$scene = this.$('#scene');
             //this.$scene.append(this.$el);
-            this.gameView = new GameView();
-            this.adminView = new AdminView();
-
-			this.game = new GameModel();
-
 			this.template = this.getTemplate('familiada-template');
+			window.familiada = this;
 
 		},
 		loadData: function () {
@@ -71,10 +69,9 @@ define([
 				dataType: "json",
 				url: "http://familiada.pkowalczyk.devel.180hb.com/php/sheet.php",
 				success: _.bind(function(data){
-					this.gameData = data;
-					this.game = new GameModel(data);
-
-					this.trigger('dataLoaded');
+					//this.game = this.game.set(data);
+					//console.log(data);
+					this.trigger('dataLoaded', data);
 				}, this)
 			});	
 		},
@@ -93,9 +90,30 @@ define([
 			this.gameView.render();
 		},
         start: function () {
+			this.on('dataLoaded', _.bind(this._start, this));
+
+			this.gameView = new GameView({
+				//game: this.game
+			});
+
+			this.gameView.openWindow();
+
+			this.loadData();
+        },
+		_start: function (data) {
+			this.game = new GameModel();
+
+			this.game.setRounds(data);
+
+			this.adminView = new AdminView({
+				game: this.game
+			});
+
 			this.renderGame();
 			this.renderAdmin();
-        }
+
+			this.game.start();
+		}
 		
 	}, Backbone.Events);
 
