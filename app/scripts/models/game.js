@@ -13,8 +13,10 @@ define([
 			rounds: new RoundsCollection(),
 			currentRound: null
 		},
-		initialize: function () {
-//			
+		initialize: function (data) {
+            var rounds = new RoundsCollection(data);
+            
+			this.set("rounds", rounds);
 		},
 		start: function () {
 			var rounds = this.get('rounds');

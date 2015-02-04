@@ -12,8 +12,10 @@ define([
 			currentQuestion: null,
 			multiplier: 1
 		},
-		initialize: function () {
-
+		initialize: function (data) {
+            var questions = new QuestionsCollection(data);
+            
+            this.set("questions", questions);
 		},
 		start: function () {
 			var questions = this.get('questions');

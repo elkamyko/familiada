@@ -7,8 +7,8 @@ define([
 			'answer': '',
 			'points': 0
 		},
-		initialize: function () {
-//			
+		initialize: function (data) {
+
 		}
 	});
 

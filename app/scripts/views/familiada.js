@@ -56,8 +56,18 @@ define([
             this.$scene = $('#scene');
             this.$scene.append(this.$el);
             this.gameView = new GameView();
-
-			this.game = new GameModel();
+            this.gameData = null;
+            
+            $.ajax({
+                dataType: "json",
+                url: "http://familiada.pkowalczyk.devel.180hb.com/php/sheet.php",
+                success: _.bind(function(data){
+                    this.gameData = data;
+                    this.game = new GameModel(this.gameData);
+                    
+                    this.trigger('dataLoaded');
+                }, this)
+            });
 
 		},
 		render: function () {
@@ -74,10 +84,7 @@ define([
             this.gameView.render();
         }
 		
-	}, {
-//		template: null,
-//		geocodingResultTemplate: null
-	});
+	}, Backbone.Events);
 
 	return FamiliadaView;
 

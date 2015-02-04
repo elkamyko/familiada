@@ -12,8 +12,10 @@ define([
 			'answers': new AnswersCollection(),
 			'revealedAnswers': []
 		},
-		initialize: function () {
-//			
+		initialize: function (data) {
+            var answers = new AnswersCollection(data.answers);
+            
+            this.set("answers", answers);
 		}
 	});
 
