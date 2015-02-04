@@ -39,7 +39,10 @@ define([
             
             if (!this.windowHanlder) {
                 this.windowHanlder = window.open(window.location.href + 'familiada-game');
-                $('body', this.windowHanlder.document).append(this.$el);
+                this.windowHanlder.onload = _.bind(function(){
+                                    console.log('window on load');
+                                    $('body', this.windowHanlder.document).append(this.$el);    
+                                }, this);
             }
     
 			var template = this.getTemplate(),
@@ -50,6 +53,8 @@ define([
 			}
                 
 			this.$el.html(template(data));
+
+            console.log(template(data));
 		}
 		
 	}, {
