@@ -1,0 +1,20 @@
+@mixin image-replacement($img, $x: 50%, $y: 50%, $inline: false, $inlineUrl: false, $fontSize: $base-font-size) {
+    @include hide-text;
+    
+    display: if($inline, inline-block, block);
+    width: em(image-width($img), $fontSize);
+    height: em(image-height($img), $fontSize);
+    
+    $img: if($inlineUrl, inline-image($img), $img);
+    
+    background: {
+        @if is-url($img) {
+            image: $img;
+        }
+        @else {
+            image: image-url($img);
+        }
+        repeat: no-repeat;
+        position: $x $y;
+    }
+}

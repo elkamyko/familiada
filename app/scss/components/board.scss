@@ -1,7 +1,27 @@
 $black: #000;
 
 .board {
-	
-	background-color: $black;
 
+	@extend %black-board-general;
+
+	.validation__wrapper {
+		@extend %validation;
+	}
+
+	.points__wrapper {
+		@extend %points;
+	}
+
+}
+
+%black-board-general {
+	background-color: $black;
+}
+
+%validation {
+	display: block;
+}
+
+%points {
+	display: block;
 }
