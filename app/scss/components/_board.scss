@@ -122,16 +122,22 @@ $yellow: #f2f185;
 	margin-top: em(15px, 25px);
 	margin-bottom: em(15px, 25px);
 
+	visibility: hidden;
+	position: relative;
+
+	&:before {
+		visibility: visible;
+		content: "....................................................................................................................";
+		white-space: nowrap;
+		overflow: hidden;
+		width: 100%;
+		position: absolute;
+	}
+
 	&.answer--visible {
-		visibility: hidden;
-		position: relative;
+		visibility: visible;
 		&:before {
-			visibility: visible;
-			content: "....................................................................................................................";
-			white-space: nowrap;
-			overflow: hidden;
-			width: 100%;
-			position: absolute;
+			content: "";
 		}
 	}
 }
