@@ -5,7 +5,8 @@ define([
 	var AnswerModel = Backbone.Model.extend({
 		defaults: {
 			'answer': '',
-			'points': 0
+			'points': 0,
+			'revealed': false
 		},
 		initialize: function (data) {
 
