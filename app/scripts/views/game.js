@@ -38,7 +38,7 @@ define([
 		render: function () {
             
             if (!this.windowHanlder) {
-                this.windowHanlder = window.open();
+                this.windowHanlder = window.open(window.location.href + 'familiada-game');
                 $('body', this.windowHanlder.document).append(this.$el);
             }
             

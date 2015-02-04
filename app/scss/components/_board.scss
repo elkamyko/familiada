@@ -15,11 +15,18 @@ $black: #000;
 }
 
 %black-board-general {
+	position: relative;
+
 	background-color: $black;
+	height: 100%;
+	padding-left: em(200px);
+	padding-right: em(200px);
 }
 
 %validation {
 	display: block;
+	position: absolute;
+	left: 0;
 }
 
 %points {

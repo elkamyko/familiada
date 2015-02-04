@@ -1,1 +1,1 @@
-.board{background-color:#000}.board .validation__wrapper{display:block}.board .points__wrapper{display:block}
+html,body{min-height:100%;height:100%}.board{position:relative;background-color:#000;height:100%;padding-left:12.501em;padding-right:12.501em}.board .validation__wrapper{display:block;position:absolute;left:0}.board .points__wrapper{display:block}
