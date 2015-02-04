@@ -1,0 +1,178 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title>geolokalizator</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="/favicon.ico">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css styles/vendor.css -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
+    </head>
+    <body>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+        </div>
+    </nav>
+        <div class="container-fluid">
+            <div class="row" id="scene">
+                
+                <script id="familiada-template" type="text/template">
+                    <div class="jumbotron">
+                        <h1>Familiada, Champ!</h1>
+                        <p>Najpierw opowiedz jakiś dowcip.</p>
+                        <p><a id="familiada-start-button" class="btn btn-primary btn-lg" role="button">Już opowiedziałem.</a></p>
+                    </div>
+                </script>
+                <script id="geocoding-result-template" type="text/template">
+
+                    {{% _.each(locations, function (location) { }}
+
+                    <li class="location list-group-item{{% if (location.selected) { }} list-group-item-success{{% } }}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="radio-inline">
+                                    <input class="{{= location.class }}" type="radio" data-lat="{{= location.lat }}" data-lng="{{= location.lng }}" value="{{= location.index }}" name="geocoding-result-{{= cid }}"{{% if (location.selected) { }} checked{{% } }}>
+                                    {{= location.label }}
+                                </label>
+                            </div>
+                            <div class="col-md-2 lat-val">
+                                {{= location.lat }}
+                            </div>
+                            <div class="col-md-2 lng-val">
+                                {{= location.lng }}
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-default show-on-map">Pokaż na mapie</button>
+                            </div>
+                        </div>
+                    </li>
+
+                    {{% }); }}
+
+                    <li class="custom-location list-group-item{{% if (custom) { }} list-group-item-success{{% } }}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="radio-inline">
+                                    <input class="custom" type="radio" value="{{= customIndex }}" name="geocoding-result-{{= cid }}"{{% if (custom) { }} checked{{% } }}>
+                                    Własne współrzędne
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="custom-lat form-control lat-val" value="{{= lat }}">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="custom-lng form-control lng-val" value="{{= lng }}">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-default show-on-map">Pokaż na mapie</button>
+                            </div>
+                        </div>
+                    </li>
+
+                </script>
+
+                <script id="place-template" type="text/template">
+                    <p class="list-group-item-heading" id="name">{{= name }}</p>
+                    <p class="address">{{= address }}</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control address-for-google" value="{{= address_for_google }}">
+                            <span class="input-group-btn">
+                                <button class="geocoding-trigger btn btn-default" type="button">Geokoduj</button>
+                            </span>
+                    </div><!-- /input-group -->
+
+                    <div class="row">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-2">
+                            Lat
+                        </div>
+                        <div class="col-md-2">
+                            Lng
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                    </div>
+
+                    <ul class="list-group geocoding-result">
+
+                    </ul>
+
+                    <div class="pull-right">
+                        <button class="from-map btn btn-primary">Odczytaj z mapy</button>
+                        <button class="save btn btn-primary">Zapisz</button>
+                    </div>
+
+                </script>
+
+                <script id="pagination-template" type="text/template">
+                    {{% _.each(pages, function (page) { }}
+                    <li class="page-trigger{{% if (page.selected) { }} active{{% } else { }}{{% } }}" data-page="{{= page.no }}">
+                        <a href="#">{{= page.label }}</a>
+                    </li>
+                    {{% }); }}
+                </script>
+                
+                
+                <script id="game-template" type="text/template">
+                    <p>cokolwiek</p>
+                </script>
+               
+
+            </div>
+        </div>
+
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+
+
+
+        <!-- build:js scripts/plugins.js -->
+
+        <script src="../bower_components/bootstrap/js/affix.js"></script>
+        <script src="../bower_components/bootstrap/js/alert.js"></script>
+        <script src="../bower_components/bootstrap/js/dropdown.js"></script>
+        <script src="../bower_components/bootstrap/js/tooltip.js"></script>
+        <script src="../bower_components/bootstrap/js/modal.js"></script>
+        <script src="../bower_components/bootstrap/js/transition.js"></script>
+        <script src="../bower_components/bootstrap/js/button.js"></script>
+        <script src="../bower_components/bootstrap/js/popover.js"></script>
+        <script src="../bower_components/bootstrap/js/carousel.js"></script>
+        <script src="../bower_components/bootstrap/js/scrollspy.js"></script>
+        <script src="../bower_components/bootstrap/js/collapse.js"></script>
+        <script src="../bower_components/bootstrap/js/tab.js"></script>
+
+        <script src="../bower_components/requirejs/require.js"></script>
+
+        <!-- endbuild -->
+        <!--<script src="../bower_components/underscore/underscore.js"></script>-->
+        <!--<script src="../bower_components/backbone/backbone.js"></script>-->
+
+
+
+        <!-- build:js({app,.tmp}) scripts/main.js -->
+        <script src="scripts/main.js"></script>
+        <!-- endbuild -->
+</body>
+</html>
