@@ -17,12 +17,15 @@
         <!-- endbuild -->
     </head>
     <body>
+
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container-fluid">
         </div>
     </nav>
         <div class="container-fluid">
             <div class="row" id="scene">
+    
+                
                 
                 <script id="familiada-template" type="text/template">
                     <div class="jumbotron">
@@ -128,6 +131,44 @@
 
             </div>
         </div>
+
+        <script id="familiada-black-board-tpl" type="text/template">
+            <div id="board">
+                <div class="board__validation">
+                    <div class="board__validation--left">
+                        
+                    </div>
+                    <div class="board__validation--right">
+                        
+                    </div>
+                </div>
+                <div class="board__questions">
+                    
+                </div>
+                <div class="board__points">
+                    <div class="board__points--left">
+                        
+                    </div>
+                    <div class="board__points--right">
+                        
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <script id="familiada-board-points-tpl" type="text/template">
+            <div class="points__wrapper">
+                <div class="points__value">
+                    1000
+                </div>
+            </div>
+        </script>
+
+        <script id="familiada-board-validation-tpl" type="text/template">
+            <div class="validation__wrapper">
+                X
+            </div>
+        </script>
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
