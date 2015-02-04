@@ -12,10 +12,11 @@ define([
 			'answers': new AnswersCollection(),
 			'revealedAnswers': []
 		},
-		initialize: function () {
-			var answers = new AnswersCollection(data.answers);
-
-			this.set("answers", answers);
+		initialize: function (data) {
+			//var answers = new AnswersCollection(data.answers);
+            //
+			//this.set("answers", answers);
+			this.set('answers', new AnswersCollection(this.get('answers')));
 		},
 		getPoints: function () {
 

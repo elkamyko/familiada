@@ -10,15 +10,23 @@ define([
 
 	var GameModel = Backbone.Model.extend({
 		defaults: {
-			teamA: new TeamModel(),
-			teamB: new TeamModel(),
+			teamA: new TeamModel({
+				name: 'Team A'
+			}),
+			teamB: new TeamModel({
+				name: 'Team B'
+			}),
+			activeTeam: null,
 			rounds: new RoundsCollection(),
 			currentRound: null
 		},
 		initialize: function (data) {
-            var rounds = new RoundsCollection(data);
-            
-			this.set("rounds", rounds);
+			//console.log(this.get('rounds'));
+			this.setRounds(this.get('rounds'));
+			//this.get('rounds').set(data);
+		},
+		setRounds: function (data) {
+			this.set('rounds', new RoundsCollection(data));
 		},
 		start: function () {
 			var rounds = this.get('rounds'),

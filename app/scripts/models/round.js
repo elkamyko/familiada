@@ -10,12 +10,12 @@ define([
 		defaults: {
 			questions: new QuestionsCollection(),
 			currentQuestion: null,
-			multiplier: 1
+			multiplier: 1,
+			stage: null
 		},
 		initialize: function (data) {
-            var questions = new QuestionsCollection(data);
-            
-            this.set("questions", questions);
+            //this.set("questions", this.get('questions').set(data.questions));
+			this.set('questions', new QuestionsCollection(this.get('questions')));
 		},
 		start: function () {
 			var questions = this.get('questions');
@@ -29,6 +29,7 @@ define([
 			}
 
 			this.set('currentQuestion', questions.at(0));
+			this.set('stage', 'race');
 		}
 	});
 

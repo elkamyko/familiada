@@ -24,8 +24,12 @@ define([
         },
 		events: {
             //'click p': 'test'
+			'click #admin-teamA': 'activateTeam',
+			'click #admin-teamB': 'activateTeam'
 		},
+		game: null,
 		initialize: function (opts) {
+			this.game = opts.game;
 //            this.$scene = $('#scene');
 //            this.$scene.append(this.$el);
 		},
@@ -33,12 +37,18 @@ define([
 
 			var template = this.getTemplate(),
                     data = {};
-			
-            if (this.model) {
-				_.extend(data, this.model.toJSON());
-			}
+
+			data.teamA = this.game.get('teamA').toJSON();
+			data.teamB = this.game.get('teamB').toJSON();
+
+            //if (this.model) {
+			//	_.extend(data, this.model.toJSON());
+			//}
                 
 			this.$el.html(template(data));
+		},
+		activateTeam: function (e) {
+			console.log(e);
 		}
 		
 	}, {
