@@ -92,8 +92,10 @@ define([
         start: function () {
 			this.on('dataLoaded', _.bind(this._start, this));
 
+			this.game = new GameModel();
+
 			this.gameView = new GameView({
-				//game: this.game
+				game: this.game
 			});
 
 			this.gameView.openWindow();
@@ -101,7 +103,6 @@ define([
 			this.loadData();
         },
 		_start: function (data) {
-			this.game = new GameModel();
 
 			this.game.setRounds(data);
 
