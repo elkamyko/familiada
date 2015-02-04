@@ -1,7 +1,7 @@
 'use_strict';
 
 define([
-//	'models/place',
+	'models/place',
     'views/game',
 	'backbone',
     'underscore',

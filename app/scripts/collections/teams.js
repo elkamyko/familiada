@@ -1,5 +1,5 @@
 define([
-	'models/round',
+	'models/team',
 	'underscore'
 ], function (TeamModel, _) {
 
