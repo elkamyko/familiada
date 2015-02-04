@@ -41,7 +41,7 @@ define([
                 this.windowHanlder = window.open(window.location.href + 'familiada-game');
                 $('body', this.windowHanlder.document).append(this.$el);
             }
-            
+    
 			var template = this.getTemplate(),
                     data = {};
 			
