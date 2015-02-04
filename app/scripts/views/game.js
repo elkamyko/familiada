@@ -17,40 +17,13 @@ define([
 	var GameView = Backbone.View.extend({
 //		tagName: 'li',
 //		className: 'list-group-item clearfix',
-        templateId: 'game-template',
+        templateId: 'familiada-black-board-tpl',
         getTemplate: function (id) {
             var $templateScript = $('#' + (id || this.templateId));
             return _.template($templateScript.html());
         },
 		events: {
             'click p': 'test'
-//			'blur .address-for-google': 'setModelAddressForGoogle',
-//			'change .address-for-google': 'setModelAddressForGoogle',
-//			'keyup .address-for-google': 'setModelAddressForGoogle',
-//
-//			'blur .custom-lat': 'setModelCustomLocation',
-//			'change .custom-lat': 'setModelCustomLocation',
-//			'keyup .custom-lat': 'setModelCustomLocation',
-//
-//			'blur .custom-lng': 'setModelCustomLocation',
-//			'change .custom-lng': 'setModelCustomLocation',
-//			'keyup .custom-lng': 'setModelCustomLocation',
-//
-//			'click .geocoding-result li button': 'stopEventPropagation',
-//			'click .geocoding-result li input': 'stopEventPropagation',
-//			'click .geocoding-result li label': 'stopEventPropagation',
-//			'click .geocoding-result li': 'selectLocation',
-//
-//			'change .geocoding-result input[type="radio"]': 'locationSelected',
-//
-//			'click .save': 'saveLocation',
-//
-//			'click .geocoding-trigger': 'geocode',
-//
-//			'click .show-on-map': 'showOnMap',
-//
-//			'click .from-map': 'fromMap'
-
 		},
         test: function () {
 //            alert('dpa');
