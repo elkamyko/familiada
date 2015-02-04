@@ -1,13 +1,13 @@
 'use_strict';
 
 define([
-	'models/place',
+	'models/game',
     'views/game',
 	'backbone',
     'underscore',
 	'jquery'
 ], function (
-//	PlaceModel,
+	GameModel,
     GameView,
 	Backbone,
     _,
@@ -23,7 +23,7 @@ define([
             return _.template($templateScript.html());
         },
 		events: {
-			'click #familiada-start-button': 'start',
+			'click #familiada-start-button': 'start'
 //			'change .address-for-google': 'setModelAddressForGoogle',
 //			'keyup .address-for-google': 'setModelAddressForGoogle',
 //
@@ -56,6 +56,9 @@ define([
             this.$scene = $('#scene');
             this.$scene.append(this.$el);
             this.gameView = new GameView();
+
+			this.game = new GameModel();
+
 		},
 		render: function () {
 			var template = this.getTemplate(),

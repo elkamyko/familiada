@@ -1,7 +1,10 @@
 define([
     'collections/answers',
 	'backbone'
-], function (Backbone) {
+], function (
+	AnswersCollection,
+	Backbone
+) {
 
 	var QuestionModel = Backbone.Model.extend({
 		defaults: {

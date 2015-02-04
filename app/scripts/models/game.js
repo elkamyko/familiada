@@ -1,8 +1,8 @@
 define([
-	'collections/answer',
+	'collections/rounds',
 	'backbone'
 ], function (
-	AnswersCollection,
+	RoundsCollection,
 	Backbone
 ) {
 
@@ -10,7 +10,7 @@ define([
 		defaults: {
 			teamA: null,
 			teamB: null,
-			rounds: new AnswersCollection(),
+			rounds: new RoundsCollection(),
 			currentRound: null
 		},
 		initialize: function () {

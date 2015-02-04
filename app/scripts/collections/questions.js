@@ -1,8 +1,10 @@
 define([
 	'models/question',
+	'backbone',
 	'underscore'
 ], function (
 	QuestionModel,
+	Backbone,
 	_
 ) {
 

@@ -1,6 +1,10 @@
 define([
+	'collections/questions',
 	'backbone'
-], function (Backbone) {
+], function (
+	QuestionsCollection,
+	Backbone
+) {
 
 	var RoundModel = Backbone.Model.extend({
 		defaults: {
