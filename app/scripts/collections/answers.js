@@ -1,7 +1,10 @@
 define([
-	'models/round',
+	'models/answer',
 	'underscore'
-], function (AnswerModel, _) {
+], function (
+	AnswerModel,
+	_
+) {
 
 	var AnswersCollection = Backbone.Collection.extend({
 		model: AnswerModel,

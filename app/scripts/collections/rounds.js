@@ -1,7 +1,10 @@
 define([
 	'models/round',
 	'underscore'
-], function (RoundModel, _) {
+], function (
+	RoundModel,
+	_
+) {
 
 	var RoundsCollection = Backbone.Collection.extend({
 		model: RoundModel,

@@ -1,17 +1,19 @@
 define([
-    ''
+    'collections/answers',
 	'backbone'
 ], function (Backbone) {
 
-	var GameModel = Backbone.Model.extend({
+	var QuestionModel = Backbone.Model.extend({
 		defaults: {
-//			name: '',
+			'question': '',
+			'answers': new AnswersCollection(),
+			'revealedAnswers': []
 		},
 		initialize: function () {
 //			
 		}
 	});
 
-	return GameModel;
+	return QuestionModel;
 
 });
