@@ -19,7 +19,7 @@ foreach ($json->feed->entry as $entry) {
         $question->question = $entry->{'gsx$questiontext'}->{'$t'};
         $question->answers = array();
         
-        $data[$currentRound][$currentQuestionId] = $question;
+        $data[$currentRound]["questions"][$currentQuestionId] = $question;
     }
     
     if (!empty($entry->{'gsx$answertext'}->{'$t'}) && !empty($entry->{'gsx$answerid'}->{'$t'})) {
@@ -29,7 +29,7 @@ foreach ($json->feed->entry as $entry) {
         $answer->answer = $entry->{'gsx$answertext'}->{'$t'};
         $answer->points = (int)$entry->{'gsx$points'}->{'$t'};
         
-        $data[$currentRound][$currentQuestionId]->answers[$answerId] = $answer;
+        $data[$currentRound]["questions"][$currentQuestionId]->answers[$answerId] = $answer;
     }
 }
 
@@ -37,11 +37,11 @@ header("Access-Control-Allow-Origin: *");
 header('Content-Type: application/json');
 
 foreach ($data as $roundId => $questions) {
-    foreach ($questions as $questionId => $question) {
-        $data[$roundId][$questionId]->answers = array_values($data[$roundId][$questionId]->answers);
+    foreach ($questions["questions"] as $questionId => $question) {
+        $data[$roundId]["questions"][$questionId]->answers = array_values($data[$roundId]["questions"][$questionId]->answers);
     }
     
-    $data[$roundId] = array_values($questions);
+    $data[$roundId]["questions"] = array_values($data[$roundId]["questions"]);
 }
 
 echo json_encode(array_values($data));
