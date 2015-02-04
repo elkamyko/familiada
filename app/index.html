@@ -27,195 +27,214 @@
     
                 
                 
-                <script id="familiada-template" type="text/template">
-                    <div class="jumbotron">
-                        <h1>Familiada, Champ!</h1>
-                        <p>Najpierw opowiedz jakiś dowcip.</p>
-                        <p><a id="familiada-start-button" class="btn btn-primary btn-lg" role="button">Już opowiedziałem.</a></p>
-                    </div>
-                </script>
-                <script id="geocoding-result-template" type="text/template">
 
-                    {{% _.each(locations, function (location) { }}
+            </div>
+        </div>
 
-                    <li class="location list-group-item{{% if (location.selected) { }} list-group-item-success{{% } }}">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="radio-inline">
-                                    <input class="{{= location.class }}" type="radio" data-lat="{{= location.lat }}" data-lng="{{= location.lng }}" value="{{= location.index }}" name="geocoding-result-{{= cid }}"{{% if (location.selected) { }} checked{{% } }}>
-                                    {{= location.label }}
-                                </label>
-                            </div>
-                            <div class="col-md-2 lat-val">
-                                {{= location.lat }}
-                            </div>
-                            <div class="col-md-2 lng-val">
-                                {{= location.lng }}
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-default show-on-map">Pokaż na mapie</button>
-                            </div>
-                        </div>
-                    </li>
+    <script id="familiada-template" type="text/template">
+        <div class="jumbotron">
+            <h1>Familiada, Champ!</h1>
+            <p>Najpierw opowiedz jakiś dowcip.</p>
+            <p><a id="familiada-start-button" class="btn btn-primary btn-lg" role="button">Już opowiedziałem.</a></p>
+        </div>
+    </script>
+    <script id="geocoding-result-template" type="text/template">
 
-                    {{% }); }}
+        {{% _.each(locations, function (location) { }}
 
-                    <li class="custom-location list-group-item{{% if (custom) { }} list-group-item-success{{% } }}">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="radio-inline">
-                                    <input class="custom" type="radio" value="{{= customIndex }}" name="geocoding-result-{{= cid }}"{{% if (custom) { }} checked{{% } }}>
-                                    Własne współrzędne
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <input type="text" class="custom-lat form-control lat-val" value="{{= lat }}">
-                            </div>
-                            <div class="col-md-2">
-                                <input type="text" class="custom-lng form-control lng-val" value="{{= lng }}">
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-default show-on-map">Pokaż na mapie</button>
-                            </div>
-                        </div>
-                    </li>
+        <li class="location list-group-item{{% if (location.selected) { }} list-group-item-success{{% } }}">
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="radio-inline">
+                        <input class="{{= location.class }}" type="radio" data-lat="{{= location.lat }}" data-lng="{{= location.lng }}" value="{{= location.index }}" name="geocoding-result-{{= cid }}"{{% if (location.selected) { }} checked{{% } }}>
+                        {{= location.label }}
+                    </label>
+                </div>
+                <div class="col-md-2 lat-val">
+                    {{= location.lat }}
+                </div>
+                <div class="col-md-2 lng-val">
+                    {{= location.lng }}
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-default show-on-map">Pokaż na mapie</button>
+                </div>
+            </div>
+        </li>
 
-                </script>
+        {{% }); }}
 
-                <script id="place-template" type="text/template">
-                    <p class="list-group-item-heading" id="name">{{= name }}</p>
-                    <p class="address">{{= address }}</p>
-                    <div class="input-group">
-                        <input type="text" class="form-control address-for-google" value="{{= address_for_google }}">
+        <li class="custom-location list-group-item{{% if (custom) { }} list-group-item-success{{% } }}">
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="radio-inline">
+                        <input class="custom" type="radio" value="{{= customIndex }}" name="geocoding-result-{{= cid }}"{{% if (custom) { }} checked{{% } }}>
+                        Własne współrzędne
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="custom-lat form-control lat-val" value="{{= lat }}">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="custom-lng form-control lng-val" value="{{= lng }}">
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-default show-on-map">Pokaż na mapie</button>
+                </div>
+            </div>
+        </li>
+
+    </script>
+
+    <script id="place-template" type="text/template">
+        <p class="list-group-item-heading" id="name">{{= name }}</p>
+        <p class="address">{{= address }}</p>
+        <div class="input-group">
+            <input type="text" class="form-control address-for-google" value="{{= address_for_google }}">
                             <span class="input-group-btn">
                                 <button class="geocoding-trigger btn btn-default" type="button">Geokoduj</button>
                             </span>
-                    </div><!-- /input-group -->
+        </div><!-- /input-group -->
 
-                    <div class="row">
-                        <div class="col-md-6"></div>
-                        <div class="col-md-2">
-                            Lat
-                        </div>
-                        <div class="col-md-2">
-                            Lng
-                        </div>
-                        <div class="col-md-2">
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-2">
+                Lat
+            </div>
+            <div class="col-md-2">
+                Lng
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
 
-                    <ul class="list-group geocoding-result">
+        <ul class="list-group geocoding-result">
 
-                    </ul>
+        </ul>
 
-                    <div class="pull-right">
-                        <button class="from-map btn btn-primary">Odczytaj z mapy</button>
-                        <button class="save btn btn-primary">Zapisz</button>
-                    </div>
-                </script>
+        <div class="pull-right">
+            <button class="from-map btn btn-primary">Odczytaj z mapy</button>
+            <button class="save btn btn-primary">Zapisz</button>
+        </div>
+    </script>
 
-                <script id="pagination-template" type="text/template">
-                    {{% _.each(pages, function (page) { }}
-                    <li class="page-trigger{{% if (page.selected) { }} active{{% } else { }}{{% } }}" data-page="{{= page.no }}">
-                        <a href="#">{{= page.label }}</a>
-                    </li>
-                    {{% }); }}
-                </script>
-                
-                <script id="game-template" type="text/template">
-                    <p>cokolwiek</p>
-                </script>
+    <script id="pagination-template" type="text/template">
+        {{% _.each(pages, function (page) { }}
+        <li class="page-trigger{{% if (page.selected) { }} active{{% } else { }}{{% } }}" data-page="{{= page.no }}">
+            <a href="#">{{= page.label }}</a>
+        </li>
+        {{% }); }}
+    </script>
 
-                <script id="familiada-black-board-tpl" type="text/template">
-            <div id="board" class="board">
-                <div class="board__validation">
-                    <div class="board__validation--left">
-                        <div class="validation__wrapper">
-                             <div class="validation__item">X</div>
-                             <div class="validation__item">X</div>
-                             <div class="validation__item">X</div>
-                        </div>
-                    </div>
-                    <div class="board__validation--right">
-                        <div class="validation__wrapper">
-                            <div class="validation__item ">X</div>
-                            <div class="validation__item">X</div>
+    <script id="game-template" type="text/template">
+        <p>cokolwiek</p>
+    </script>
 
-                        </div>
+    <script id="familiada-black-board-tpl" type="text/template">
+        <div id="board" class="board">
+            <div class="board__validation">
+                <div class="board__validation--left">
+                    <div class="validation__wrapper">
+                        <div class="validation__item">X</div>
+                        <div class="validation__item">X</div>
+                        <div class="validation__item">X</div>
                     </div>
                 </div>
-                <div class="board__questions">
-                    <div class="board__questions--header">
-                        FAMILIADA CHAMP!!
+                <div class="board__validation--right">
+                    <div class="validation__wrapper">
+                        <div class="validation__item ">X</div>
+                        <div class="validation__item">X</div>
+
                     </div>
-                    <div class="board__questions--header board__questions--points__summation">
+                </div>
+            </div>
+            <div class="board__questions">
+                <div class="board__questions--header">
+                    FAMILIADA CHAMP!!
+                </div>
+                <div class="board__questions--header board__questions--points__summation">
                         <span class="points__summation--value">
                             2000
                         </span> punktów do zebrania!
-                    </div>
-                    <div class="board__question__wrapper">
-                        <div class="question__item">
-                            <div class="question__item--name">
-                                Przykładowe pytanie sdjn sjknd skjnd sjkn dkjsn djksnk jnsjkd n?
-                            </div>
-                            <div class="question__item--answers">
-                                <div class="item__answer">
-                                    <div class="answer--content">
-                                        to jest odpowiedz numer jeden nancjksancj A NASJ  ASDAS
-                                    </div>
-                                    <div class="answer--points">
-                                          78
-                                    </div>
-                                </div>
-                                <div class="item__answer">
-                                    <div class="answer--content">
-                                        to jest odpowiedz numer jeden nancjksancj A NASJ  ASDAS
-                                    </div>
-                                    <div class="answer--points">
-                                          78
-                                    </div>
-                                </div>
-                                <div class="item__answer">
-                                    <div class="answer--content">
-                                        to jest odpowiedz numer jeden nancjksancj A NASJ  ASDAS
-                                    </div>
-                                    <div class="answer--points">
-                                          78
-                                    </div>
-                                </div>
-
-                                <div class="item__answer">
-                                    <div class="answer--content">
-                                        to jest odpowiedz numer jeden nancjksancj A NASJ  ASDAS
-                                    </div>
-                                    <div class="answer--points">
-                                          78
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <div class="board__points">
-                    <div class="board__points--left">
-                        <div class="points__wrapper">
-                            <div class="points__value">
-                                1000
-                            </div>
+                <div class="board__question__wrapper">
+                    <div class="question__item">
+                        <div class="question__item--name">
+                            Przykładowe pytanie sdjn sjknd skjnd sjkn dkjsn djksnk jnsjkd n?
                         </div>
-                    </div>
-                    <div class="board__points--right">
-                        <div class="points__wrapper">
-                            <div class="points__value">
-                                1000
+                        <div class="question__item--answers">
+                            <div class="item__answer">
+                                <div class="answer--content">
+                                    to jest odpowiedz numer jeden nancjksancj A NASJ  ASDAS
+                                </div>
+                                <div class="answer--points">
+                                    78
+                                </div>
+                            </div>
+                            <div class="item__answer">
+                                <div class="answer--content">
+                                    to jest odpowiedz numer jeden nancjksancj A NASJ  ASDAS
+                                </div>
+                                <div class="answer--points">
+                                    78
+                                </div>
+                            </div>
+                            <div class="item__answer">
+                                <div class="answer--content">
+                                    to jest odpowiedz numer jeden nancjksancj A NASJ  ASDAS
+                                </div>
+                                <div class="answer--points">
+                                    78
+                                </div>
+                            </div>
+
+                            <div class="item__answer">
+                                <div class="answer--content">
+                                    to jest odpowiedz numer jeden nancjksancj A NASJ  ASDAS
+                                </div>
+                                <div class="answer--points">
+                                    78
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </script>
+            <div class="board__points">
+                <div class="board__points--left">
+                    <div class="points__wrapper">
+                        <div class="points__value">
+                            1000
+                        </div>
+                    </div>
+                </div>
+                <div class="board__points--right">
+                    <div class="points__wrapper">
+                        <div class="points__value">
+                            1000
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </script>
+
+        <script id="admin-template" type="text/template">
+
+            <div class="row">
+                <div class="col-md-2" id="admin-teamA"></div>
+                <div class="col-md-8" id="admin-question"></div>
+                <div class="col-md-2" id="admin-teamB"></div>
+            </div>
+
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <span class="badge">14</span>
+                    Cras justo odio
+                </li>
+            </ul>
+
+        </script>
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->

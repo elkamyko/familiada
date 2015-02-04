@@ -4,7 +4,8 @@ define([
 
 	var TeamModel = Backbone.Model.extend({
 		defaults: {
-//			name: '',
+			name: '',
+			points: 0
 		},
 		initialize: function () {
 //			
