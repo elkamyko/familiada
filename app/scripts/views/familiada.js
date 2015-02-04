@@ -3,12 +3,14 @@
 define([
 	'models/game',
     'views/game',
+	'views/admin',
 	'backbone',
     'underscore',
 	'jquery'
 ], function (
 	GameModel,
     GameView,
+	AdminView,
 	Backbone,
     _,
     $
@@ -18,6 +20,7 @@ define([
 //		tagName: 'li',
 //		className: 'list-group-item clearfix',
         templateId: 'familiada-template',
+		el: 'body',
         getTemplate: function (id) {
             var $templateScript = $('#' + (id || this.templateId));
             return _.template($templateScript.html());
@@ -53,35 +56,45 @@ define([
 		},
 		$scene: null,
 		initialize: function (opts) {
-            this.$scene = $('#scene');
-            this.$scene.append(this.$el);
+            this.$scene = this.$('#scene');
+            //this.$scene.append(this.$el);
             this.gameView = new GameView();
-            this.gameData = null;
-            
-            $.ajax({
-                dataType: "json",
-                url: "http://familiada.pkowalczyk.devel.180hb.com/php/sheet.php",
-                success: _.bind(function(data){
-                    this.gameData = data;
-                    this.game = new GameModel(this.gameData);
-                    
-                    this.trigger('dataLoaded');
-                }, this)
-            });
+            this.adminView = new AdminView();
+
+			this.game = new GameModel();
+
+			this.template = this.getTemplate('familiada-template');
 
 		},
+		loadData: function () {
+			return $.ajax({
+				dataType: "json",
+				url: "http://familiada.pkowalczyk.devel.180hb.com/php/sheet.php",
+				success: _.bind(function(data){
+					this.gameData = data;
+					this.game = new GameModel(data);
+
+					this.trigger('dataLoaded');
+				}, this)
+			});	
+		},
 		render: function () {
-			var template = this.getTemplate(),
-                    data = {};
-			
-            if (this.model) {
-				_.extend(data, this.model.toJSON());
-			}
-                
-			this.$el.html(template(data));
+			this.renderPreGame();
+		},
+		renderPreGame: function () {
+			this.$scene.html(this.template({}));
+		},
+		renderAdmin: function () {
+			this.adminView.render();
+			this.$scene.html('');
+			this.$scene.append(this.adminView.el);
+		},
+		renderGame: function () {
+			this.gameView.render();
 		},
         start: function () {
-            this.gameView.render();
+			this.renderGame();
+			this.renderAdmin();
         }
 		
 	}, Backbone.Events);

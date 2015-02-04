@@ -48,9 +48,11 @@ require.config({
 
 require([
 	'views/familiada',
+	'jquery',
 	'underscore'
 ], function (
 	FamiliadaView,
+	$,
     _
 	) {
 
@@ -62,7 +64,9 @@ require([
 		interpolate: /\{\{(?!=|%)(.+?)\}\}/g
 	};
 
-	var familiadaView = new FamiliadaView();
+	var familiadaView = new FamiliadaView({
+		//el: $('body')
+	});
 	familiadaView.render();
 	console.log('familiada has landed');
 
