@@ -1,4 +1,5 @@
 $black: #000;
+$yellow: #f2f185;
 
 .board {
 
@@ -11,24 +12,126 @@ $black: #000;
 	.points__wrapper {
 		@extend %points;
 	}
+	
+	.board__question__wrapper {
+		.question__item {
+			@extend %question__item;
+		}
+	}
 
+	.board__validation--right {
+		.validation__wrapper {
+			right: 0;
+		}
+	}
+
+	.board__validation--left {
+		.validation__wrapper {
+			left: 0;
+		}
+	}
+
+	.board__points--right {
+		.points__wrapper {
+			right: 0;
+		}
+	}
+
+	.board__points--left {
+		.points__wrapper {
+			left: 0;
+		}
+	}
 }
 
 %black-board-general {
 	position: relative;
-
+	
 	background-color: $black;
+	color: $yellow;
 	height: 100%;
 	padding-left: em(200px);
 	padding-right: em(200px);
+
+	font-family: $familiada-font-family;
+
+	.board__questions--header {
+		text-transform: uppercase;
+		font-size: em(50px);
+		text-align: center;
+	}
 }
 
 %validation {
 	display: block;
 	position: absolute;
-	left: 0;
+
+	.validation__item {
+		font-size: em(150px);
+	}
+	
+	.validation__item--small {
+		font-size: em(150px);
+	}
+
+	.validation__item--big {
+		font-size: em(350px);
+	}
 }
 
 %points {
 	display: block;
+
+	position: absolute;
+	bottom: 0;
+
+	font-size: em(80px);
+}
+
+%question__item {
+	display: block;
+	padding: em(70px);
+	
+	.question__item--name {
+		font-size: em(30px);
+	}
+
+	.question__item--answers {
+		margin-top: em(50px);
+		.item__answer {
+			@extend %item__answer;
+		}
+	}
+}
+
+%item__answer {
+
+	overflow: auto;
+
+	.answer--points {
+		float: right;
+	}
+
+	.answer--content {
+		float: left;
+		padding-right: em(50px);	
+	}
+
+	display: block;	
+	font-size: em(25px);
+	margin-top: em(15px, 25px);
+	margin-bottom: em(15px, 25px);
+
+	&.answer--visible {
+		visibility: hidden;
+		position: relative;
+		&:before {
+			visibility: visible;
+			content: "....................................................................................................................";
+			white-space: nowrap;
+			overflow: hidden;
+			width: 100%;
+			position: absolute;
+		}
+	}
 }
