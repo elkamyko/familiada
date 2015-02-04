@@ -1,16 +1,35 @@
 define([
+	'collections/questions',
 	'backbone'
-], function (Backbone) {
+], function (
+	QuestionsCollection,
+	Backbone
+) {
 
-	var QuestionModel = Backbone.Model.extend({
+	var RoundModel = Backbone.Model.extend({
 		defaults: {
-//			name: '',
+			questions: new QuestionsCollection(),
+			currentQuestion: null,
+			multiplier: 1
 		},
 		initialize: function () {
-//			
+
+		},
+		start: function () {
+			var questions = this.get('questions');
+
+			if (!questions.length) {
+				throw 'Cannot start round, there are no questions!';
+			}
+
+			if (this.get('currentQuestion')) {
+				throw 'Cannot start round, round already started.';
+			}
+
+			this.set('currentQuestion', questions.at(0));
 		}
 	});
 
-	return QuestionModel;
+	return RoundModel;
 
 });
