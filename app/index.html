@@ -135,15 +135,11 @@
                 <div class="board__validation">
                     <div class="board__validation--left">
                         <div class="validation__wrapper">
-                            
-                            <div class="validation__item">X</div>
-                            <div class="validation__item">X</div>
+
                         </div>
                     </div>
                     <div class="board__validation--right">
                         <div class="validation__wrapper">
-                            <div class="validation__item ">X</div>
-                            <div class="validation__item">X</div>
 
                         </div>
                     </div>
@@ -153,55 +149,14 @@
                         FAMILIADA CHAMP!!
                     </div>
                     <div class="board__questions--header board__questions--points__summation">
-                            <span class="points__summation--value">
-                                2000
-                            </span> punktów do zebrania!
+                        <span class="points__summation--value">
+                            2000
+                        </span> punktów do zebrania!
                     </div>
                     <div class="board__question__wrapper">
-                        <div class="question__item">
-                            <div class="question__item--name">
-                                Przykładowe pytanie sdjn sjknd skjnd sjkn dkjsn djksnk jnsjkd n?
-                            </div>
-                            <div class="question__item--answers">
-                                <div class="item__answer">
-                                    <div class="answer--content">
-                                        to jest odpowiedz numer jeden nancjksancj A NASJ  ASDAS
-                                    </div>
-                                    <div class="answer--points">
-                                        78
-                                    </div>
-                                </div>
-                                <div class="item__answer">
-                                    <div class="answer--content">
-                                        to jest odpowiedz numer jeden nancjksancj A NASJ  ASDAS
-                                    </div>
-                                    <div class="answer--points">
-                                        78
-                                    </div>
-                                </div>
-                                <div class="item__answer">
-                                    <div class="answer--content">
-                                        to jest odpowiedz numer jeden nancjksancj A NASJ  ASDAS
-                                    </div>
-                                    <div class="answer--points">
-                                        78
-                                    </div>
-                                </div>
 
-                                <div class="item__answer">
-                                    <div class="answer--content">
-                                        to jest odpowiedz numer jeden nancjksancj A NASJ  ASDAS
-                                    </div>
-                                    <div class="answer--points">
-                                        78
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-                <div id="board__points" class="board__points">
-                </div
             </div>
         </script>
 
@@ -217,9 +172,35 @@
 
         <script id="board__chance" type="text/template">
 
-            {% _.each(chances, function (chance) { 
-                <div class="validation__item">X</div> 
-            }}
+            {{% for(var i = 0; i < lostChances; i++) { }}
+                <div class="validation__item">X</div>
+            {{% } }}
+
+        </script>
+
+        <script id="board__question" type="text/template">
+
+            <div class="question__item">
+                <div class="question__item--name">
+                    {{= question }}
+                </div>
+                <div class="question__item--answers">
+
+                    {{% _.each(answers, function (answer) { }}
+
+                    <div class="item__answer{{= answer.revealed ? ' answer--visible' : '' }}">
+                        <div class="answer--content">
+                            {{= answer.answer }}
+                        </div>
+                        <div class="answer--points">
+                            {{= answer.points }}
+                        </div>
+                    </div>
+
+                    {{% }) }}
+
+                </div>
+            </div>
 
         </script>
 

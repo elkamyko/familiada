@@ -28,6 +28,8 @@ define([
 				throw 'Cannot start round, round already started.';
 			}
 
+			console.log(questions.at(0));
+
 			this.set('currentQuestion', questions.at(0));
 			this.set('stage', 'race');
 		}

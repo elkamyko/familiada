@@ -22,20 +22,13 @@ define([
             var $templateScript = $('#' + (id || this.templateId));
             return _.template($templateScript.html());
         },
-		initialize: function (team) {
-
-			this.model.on('change:chances', _.bind(this.render, this));
-
+		initialize: function (opts) {
+			opts = opts || {};
+			this.game = opts.game;
+			this.templateId = opts.template || this.templateId;
+			this.model.on('change:lostChances', _.bind(this.render, this));
 		},
-		render: function (domElement) {
-
-			var template = this.getTemplate(),
-                    data = {};
-			
-            if (this.model) {
-				_.extend(data, this.model.toJSON());
-			}
-
+		render: function () {
 			this.$el.html(this.getTemplate()(this.model.toJSON()));
 		}
 		

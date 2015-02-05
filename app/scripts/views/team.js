@@ -47,7 +47,9 @@ define([
 		},
 		
 		initialize: function (opts) {
-
+			opts = opts || {};
+			this.game = opts.game;
+			this.templateId = opts.template || this.templateId;
 		},
 		render: function () {
 			var data = PlaceModel.prototype.defaults, template = this.getTemplate();

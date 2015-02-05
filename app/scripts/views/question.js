@@ -16,29 +16,51 @@ define([
 
 	var QuestionView = Backbone.View.extend({
 
-		templateId: 'board_question',
+		templateId: 'board__question',
 		pointsRendered: null,
         getTemplate: function (id) {
             var $templateScript = $('#' + (id || this.templateId));
             return _.template($templateScript.html());
         },
-		initialize: function (team) {
+		initialize: function (opts) {
+			opts = opts || {};
+			this.game = opts.game;
+			this.templateId = opts.template || this.templateId;
+
+			var thisRender = _.bind(this.render, this);
+
+			this.game.on('change:currentRound', _.bind(function () {
+				var round = this.game.get('currentRound');
+				if (!round) return;
+				round.on('change:currentQuestion', _.bind(function () {
+					thisRender();
+					round.get('questions').each(_.bind(function (question) {
+						question.get('answers').each(_.bind(function (answer) {
+							answer.on('change:revealed', thisRender);
+						}, this));
+					}, this));
+				}, this));
+			}, this));
+			//this.game.get('rounds').each(function (round) {
+			//	round.on('change:currentQuestion', thisRender);
+			//});
 
 			/*this.model.on('change:points', _.bind(this.render, this));*/
 
 		},
-		render: function (domElement) {
+		render: function () {
+			var round = this.game.get('currentRound');
 
-			var template = this.getTemplate(),
-                    data = {};
-			
-            if (this.model) {
-				_.extend(data, this.model.toJSON());
-			}
+			if (!round) return;
 
-			console.log(this.model.toJSON());
+			var question = round.get('currentQuestion');
 
-			this.$el.html(this.getTemplate()(this.model.toJSON()));
+			if (!question) return;
+
+			var data = question.toJSON();
+			data.answers = data.answers.toJSON();
+
+			this.$el.html(this.getTemplate()(data));
 		}
 		
 	}, {
