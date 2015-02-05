@@ -11,10 +11,12 @@ define([
 	var GameModel = Backbone.Model.extend({
 		defaults: {
 			teamA: new TeamModel({
-				name: 'Team A'
+				name: 'Team A',
+				pointsClass: 'left'
 			}),
 			teamB: new TeamModel({
-				name: 'Team B'
+				name: 'Team B',
+				pointsClass: 'right'
 			}),
 			activeTeam: null,
 			rounds: new RoundsCollection(),

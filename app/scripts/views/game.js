@@ -6,12 +6,14 @@ define([
     'underscore',
 	'jquery',
     'window',
+    'views/points'
 ], function (
 //	PlaceModel,
 	Backbone,
     _,
     $,
-    window
+    window,
+    PointsView
 ) {
 
 	var GameView = Backbone.View.extend({
@@ -33,10 +35,18 @@ define([
         game: null,
 		initialize: function (opts) {
             this.game = opts.game;
-//            this.$scene = $('#scene');
-//            this.$scene.append(this.$el);
+            
+            this.pointsTeamA = new PointsView({
+                model: this.game.get('teamA')
+            });
+
+            this.pointsTeamB = new PointsView({
+                model: this.game.get('teamB')
+            });
+
 		},
         windowHanlder: null,
+        
         openWindow: function () {
             if (!this.windowHanlder) {
                 this.windowHanlder = window.open(window.location.href + 'familiada-game');
@@ -46,6 +56,7 @@ define([
                 }, this);
             }
         },
+
 		render: function () {
 
 			var template = this.getTemplate(),
@@ -57,7 +68,10 @@ define([
                 
 			this.$el.html(template(data));
 
-            console.log(template(data));
+            this.$('#board').append(this.pointsTeamA.el);
+            this.$('#board').append(this.pointsTeamB.el);
+            this.pointsTeamA.render();
+            this.pointsTeamB.render();
 		}
 		
 	}, {

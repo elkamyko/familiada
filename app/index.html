@@ -200,27 +200,19 @@
                         </div>
                     </div>
                 </div>
-                
+                <div id="board__points" class="board__points">
+                </div
             </div>
         </script>
 
         <script id="board__points" type="text/template">
-            <div id="board__points" class="board__points">
-                <div class="board__points--left">
-                   <div class="points__wrapper">
-                        <div class="points__value">
-                            {{= points}}
-                        </div>
-                    </div> 
-                </div>
-                <div class="board__points--right">
+                <div class="board__points--{{= pointsClass}}">
                     <div class="points__wrapper">
                         <div class="points__value">
                             {{= points}}
                         </div>
                     </div>
                 </div>
-            </div>
         </script>
 
         <script id="admin-template" type="text/template">
