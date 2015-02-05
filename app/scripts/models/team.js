@@ -13,5 +13,4 @@ define([
 	});
 
 	return TeamModel;
-
 });
