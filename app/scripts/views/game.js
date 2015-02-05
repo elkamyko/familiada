@@ -6,14 +6,18 @@ define([
     'underscore',
 	'jquery',
     'window',
-    'views/points'
+    'views/points',
+    'views/chance',
+    'views/question'
 ], function (
 //	PlaceModel,
 	Backbone,
     _,
     $,
     window,
-    PointsView
+    PointsView,
+    ChanceView,
+    QuestionView
 ) {
 
 	var GameView = Backbone.View.extend({
@@ -35,17 +39,17 @@ define([
         game: null,
 		initialize: function (opts) {
             this.game = opts.game;
-            
-            this.pointsTeamA = new PointsView({
-                model: this.game.get('teamA')
-            });
 
-            this.pointsTeamB = new PointsView({
-                model: this.game.get('teamB')
-            });
+            console.log(this.game);
+            
+            this.pointsTeamA = new PointsView({ model: this.game.get('teamA') });
+
+            this.pointsTeamB = new PointsView({ model: this.game.get('teamB') });
 
             this.chanceTeamA = new ChanceView({ model: this.game.get('teamA') });
             this.chanceTeamB = new ChanceView({ model: this.game.get('teamB') });
+
+            this.question = new QuestionView({ model: this.game.get('currentRound') });
 
 		},
         windowHanlder: null,
@@ -73,8 +77,12 @@ define([
 
             this.$('#board').append(this.pointsTeamA.el);
             this.$('#board').append(this.pointsTeamB.el);
+            this.$('#board').append(this.question.el);
+
             this.pointsTeamA.render();
             this.pointsTeamB.render();
+
+            this.question.render();
 		}
 		
 	}, {
