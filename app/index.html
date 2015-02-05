@@ -135,7 +135,7 @@
                 <div class="board__validation">
                     <div class="board__validation--left">
                         <div class="validation__wrapper">
-                            <div class="validation__item">X</div>
+                            
                             <div class="validation__item">X</div>
                             <div class="validation__item">X</div>
                         </div>
@@ -213,6 +213,14 @@
                         </div>
                     </div>
                 </div>
+        </script>
+
+        <script id="board__chance" type="text/template">
+
+            {% _.each(chances, function (chance) { 
+                <div class="validation__item">X</div> 
+            }}
+
         </script>
 
         <script id="admin-template" type="text/template">

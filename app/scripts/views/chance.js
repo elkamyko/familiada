@@ -14,23 +14,29 @@ define([
     window
 ) {
 
-	var PointsView = Backbone.View.extend({
+	var ChanceView = Backbone.View.extend({
 
-		templateId: 'board__points',
-		
+		templateId: 'board__chance',
+		pointsRendered: null,
         getTemplate: function (id) {
             var $templateScript = $('#' + (id || this.templateId));
             return _.template($templateScript.html());
         },
-		events: {
-            //'click p': 'test'
-		},
 		initialize: function (team) {
 
-		
+			this.model.on('change:chances', _.bind(this.render, this));
+
 		},
-		render: function (isTeamA, pointsValue) {
-			isTeamA ? this.pointsTeamA.text(pointsValue) : this.pointsTeamB.text(pointsValue);
+		render: function (domElement) {
+
+			var template = this.getTemplate(),
+                    data = {};
+			
+            if (this.model) {
+				_.extend(data, this.model.toJSON());
+			}
+
+			this.$el.html(this.getTemplate()(this.model.toJSON()));
 		}
 		
 	}, {
@@ -38,6 +44,6 @@ define([
 //		geocodingResultTemplate: null
 	});
 
-	return PointsView;
-	
+	return ChanceView;
+
 });

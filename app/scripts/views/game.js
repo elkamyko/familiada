@@ -44,9 +44,12 @@ define([
                 model: this.game.get('teamB')
             });
 
+            this.chanceTeamA = new ChanceView({ model: this.game.get('teamA') });
+            this.chanceTeamB = new ChanceView({ model: this.game.get('teamB') });
+
 		},
         windowHanlder: null,
-        
+
         openWindow: function () {
             if (!this.windowHanlder) {
                 this.windowHanlder = window.open(window.location.href + 'familiada-game');
