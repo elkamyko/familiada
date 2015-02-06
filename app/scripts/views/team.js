@@ -1,69 +1,43 @@
 'use_strict';
 
 define([
-	'models/team',
 	'backbone',
-    'underscore',
-	'jquery'
+	'underscore',
+	'jquery',
+	'window',
 ], function (
-	TeamModel,
 	Backbone,
-    _,
-    $
+	_,
+	$,
+	window
 ) {
 
 	var TeamView = Backbone.View.extend({
-//		tagName: 'li',
-//		className: 'list-group-item clearfix',
-        
-		events: {
-//			'blur .address-for-google': 'setModelAddressForGoogle',
-//			'change .address-for-google': 'setModelAddressForGoogle',
-//			'keyup .address-for-google': 'setModelAddressForGoogle',
-//
-//			'blur .custom-lat': 'setModelCustomLocation',
-//			'change .custom-lat': 'setModelCustomLocation',
-//			'keyup .custom-lat': 'setModelCustomLocation',
-//
-//			'blur .custom-lng': 'setModelCustomLocation',
-//			'change .custom-lng': 'setModelCustomLocation',
-//			'keyup .custom-lng': 'setModelCustomLocation',
-//
-//			'click .geocoding-result li button': 'stopEventPropagation',
-//			'click .geocoding-result li input': 'stopEventPropagation',
-//			'click .geocoding-result li label': 'stopEventPropagation',
-//			'click .geocoding-result li': 'selectLocation',
-//
-//			'change .geocoding-result input[type="radio"]': 'locationSelected',
-//
-//			'click .save': 'saveLocation',
-//
-//			'click .geocoding-trigger': 'geocode',
-//
-//			'click .show-on-map': 'showOnMap',
-//
-//			'click .from-map': 'fromMap'
 
+		templateId: 'admin-team-view',
+		pointsRendered: null,
+		getTemplate: function (id) {
+			var $templateScript = $('#' + (id || this.templateId));
+			return _.template($templateScript.html());
 		},
-		
+		events: {
+			'click .activate-team': 'chooseTeam'
+		},
+		chooseTeam: function () {
+			if (!this.game) return;
+			this.game.chooseTeam(this.model);
+		},
 		initialize: function (opts) {
 			opts = opts || {};
 			this.game = opts.game;
 			this.templateId = opts.template || this.templateId;
+			this.model.on('change', _.bind(this.render, this));
 		},
 		render: function () {
-			var data = PlaceModel.prototype.defaults, template = this.getTemplate();
-
-			if (this.model) {
-				_.extend(data, this.model.toJSON());
-			}
-
-			if (!data.address_for_google) data.address_for_google = data.address;
-
-			this.$el.html(template(data));
-
+			var data = this.model.toJSON()
+			this.$el.html(this.getTemplate()(data));
 		}
-		
+
 	}, {
 //		template: null,
 //		geocodingResultTemplate: null

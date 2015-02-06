@@ -3,7 +3,11 @@
 define([
 	'models/game',
     'views/game',
-	'views/admin',
+	'views/points',
+	'views/chance',
+	'views/question',
+	'views/team',
+	'views/round',
 	'backbone',
     'underscore',
 	'jquery',
@@ -11,7 +15,11 @@ define([
 ], function (
 	GameModel,
     GameView,
-	AdminView,
+	PointsView,
+	ChanceView,
+	QuestionView,
+	TeamView,
+	RoundView,
 	Backbone,
     _,
     $,
@@ -74,15 +82,67 @@ define([
 
 			this.gameView.openWindow();
 
+			var pointsAView = new PointsView({
+				template: 'admin-points-template',
+				model: this.game.get('teamA')
+			});
+
+			var pointsBView = new PointsView({
+				template: 'admin-points-template',
+				model: this.game.get('teamB')
+			});
+
+			var chanceAView = new ChanceView({
+				template: 'admin-chance-template',
+				model: this.game.get('teamA')
+			});
+
+			var chanceBView = new ChanceView({
+				template: 'admin-chance-template',
+				model: this.game.get('teamB')
+			});
+
+			var questionView = new QuestionView({
+				template: 'admin-question-template',
+				game: this.game
+			})
+
+			var teamAView = new TeamView({
+				template: 'admin-team-template',
+				model: this.game.get('teamA'),
+				game: this.game
+			});
+
+			var teamBView = new TeamView({
+				template: 'admin-team-template',
+				model: this.game.get('teamB'),
+				game: this.game
+			});
+
+			var roundView = new RoundView({
+				template: 'admin-round-template',
+				//model: this.game.get('teamB'),
+				game: this.game
+			});
+
+			this.adminView = new GameView({
+				template: 'admin-game-template',
+				game: this.game,
+				pointsAView: pointsAView,
+				pointsBView: pointsBView,
+				chanceAView: chanceAView,
+				chanceBView: chanceBView,
+				questionView: questionView,
+				teamAView: teamAView,
+				teamBView: teamBView,
+				roundView: roundView
+			});
+
 			this.loadData();
         },
 		_start: function (data) {
 
 			this.game.setRounds(data);
-
-			this.adminView = new AdminView({
-				game: this.game
-			});
 
 			this.renderGame();
 			this.renderAdmin();

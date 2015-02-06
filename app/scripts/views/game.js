@@ -37,11 +37,15 @@ define([
             this.game = opts.game;
             this.templateId = opts.template || this.templateId;
 
+            this.teamAView = opts.teamAView || null;
+            this.teamBView = opts.teamBView || null;
+            this.roundView = opts.roundView || null;
+
             this.pointsAView = opts.pointsAView || new PointsView({ model: this.game.get('teamA') });
             this.pointsBView = opts.pointsBView || new PointsView({ model: this.game.get('teamB') });
             this.chanceAView = opts.chanceAView || new ChanceView({ model: this.game.get('teamA') });
             this.chanceBView = opts.chanceBView || new ChanceView({ model: this.game.get('teamB') });
-            this.questionView = opts.QuestionView || new QuestionView({ game: this.game });
+            this.questionView = opts.questionView || new QuestionView({ game: this.game });
 
 		},
         windowHanlder: null,
@@ -67,11 +71,11 @@ define([
                 
 			this.$el.html(template(data));
 
-            this.$('#board').append(this.pointsAView.el);
-            this.$('#board').append(this.pointsBView.el);
-            this.$('#board .board__question__wrapper').append(this.questionView.el);
-            this.$('#board .board__validation--left .validation__wrapper').append(this.chanceAView.el);
-            this.$('#board .board__validation--right .validation__wrapper').append(this.chanceBView.el);
+            this.$('.points-a-view').append(this.pointsAView.el);
+            this.$('.points-b-view').append(this.pointsBView.el);
+            this.$('.question-view').append(this.questionView.el);
+            this.$('.chance-a-view').append(this.chanceAView.el);
+            this.$('.chance-b-view').append(this.chanceBView.el);
 
             this.pointsAView.render();
             this.pointsBView.render();
@@ -80,6 +84,14 @@ define([
             this.chanceBView.render();
 
             this.questionView.render();
+
+            if (this.teamAView) this.$('.team-a-view').append(this.teamAView.el);
+            if (this.teamBView) this.$('.team-b-view').append(this.teamBView.el);
+            if (this.roundView) this.$('.round-view').append(this.roundView.el);
+
+            if (this.teamAView) this.teamAView.render();
+            if (this.teamBView) this.teamBView.render();
+            if (this.roundView) this.roundView.render();
 		}
 		
 	}, {

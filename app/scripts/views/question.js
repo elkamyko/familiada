@@ -22,6 +22,25 @@ define([
             var $templateScript = $('#' + (id || this.templateId));
             return _.template($templateScript.html());
         },
+		events: {
+			'click .answer': 'chooseAnswer',
+			'click .invalid-answer': 'chooseInvalidAnswer'
+		},
+
+		chooseAnswer: function (e) {
+			var round = this.game.get('currentRound');
+
+			if (!round) return false;
+
+			var question = round.get('currentQuestion');
+
+			if (!question) return false;
+
+			this.game.chooseAnswer(question.get('answers').get({cid: $(e.target).attr('data-cid')}));
+		},
+		chooseInvalidAnswer: function () {
+			this.game.chooseInvalidAnswer();
+		},
 		initialize: function (opts) {
 			opts = opts || {};
 			this.game = opts.game;
@@ -58,7 +77,14 @@ define([
 			if (!question) return;
 
 			var data = question.toJSON();
-			data.answers = data.answers.toJSON();
+			var answers = [];
+			question.get('answers').each(function (answer) {
+				var data = answer.toJSON();
+				data.cid = answer.cid;
+				answers.push(data);
+			});
+			data.answers = answers;
+			//data.cid = question.cid;
 
 			this.$el.html(this.getTemplate()(data));
 		}

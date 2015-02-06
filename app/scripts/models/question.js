@@ -24,8 +24,10 @@ define([
 				pointsSum = 0;
 
 			this.get('answers').each(_.bind(function (answer) {
-				if (_.indexOf(revealed, answer) !== -1) {
-					pointsSum = pointsSum + answer.get('points');
+				//if (_.indexOf(revealed, answer) !== -1) {
+
+				if (answer.get('revealed')) {
+					pointsSum = pointsSum + parseInt(answer.get('points'));
 				}
 			}, this));
 

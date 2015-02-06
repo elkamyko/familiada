@@ -20,6 +20,7 @@ define([
 		pointsRendered: null,
         getTemplate: function (id) {
             var $templateScript = $('#' + (id || this.templateId));
+			console.log($templateScript);
             return _.template($templateScript.html());
         },
 		initialize: function (opts) {

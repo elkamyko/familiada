@@ -18,128 +18,32 @@
     </head>
     <body>
 
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container-fluid">
-        </div>
-    </nav>
-        <div class="container-fluid">
-            <div class="row" id="scene">
-    
-                
-                
+    <div class="container-fluid" id="scene">
 
-            </div>
-        </div>
+    </div>
 
     <script id="familiada-template" type="text/template">
-        <div class="jumbotron">
-            <h1>Familiada, Champ!</h1>
-            <p>Najpierw opowiedz jakiś dowcip.</p>
-            <p><a id="familiada-start-button" class="btn btn-primary btn-lg" role="button">Już opowiedziałem.</a></p>
-        </div>
-    </script>
-    <script id="geocoding-result-template" type="text/template">
-
-        {{% _.each(locations, function (location) { }}
-
-        <li class="location list-group-item{{% if (location.selected) { }} list-group-item-success{{% } }}">
-            <div class="row">
-                <div class="col-md-6">
-                    <label class="radio-inline">
-                        <input class="{{= location.class }}" type="radio" data-lat="{{= location.lat }}" data-lng="{{= location.lng }}" value="{{= location.index }}" name="geocoding-result-{{= cid }}"{{% if (location.selected) { }} checked{{% } }}>
-                        {{= location.label }}
-                    </label>
+        <div class="row" >
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <h1>Familiada, Champ!</h1>
+                    <p>Najpierw opowiedz jakiś dowcip.</p>
+                    <p><a id="familiada-start-button" class="btn btn-primary btn-lg" role="button">Już opowiedziałem.</a></p>
                 </div>
-                <div class="col-md-2 lat-val">
-                    {{= location.lat }}
-                </div>
-                <div class="col-md-2 lng-val">
-                    {{= location.lng }}
-                </div>
-                <div class="col-md-2">
-                    <button class="btn btn-default show-on-map">Pokaż na mapie</button>
-                </div>
-            </div>
-        </li>
-
-        {{% }); }}
-
-        <li class="custom-location list-group-item{{% if (custom) { }} list-group-item-success{{% } }}">
-            <div class="row">
-                <div class="col-md-6">
-                    <label class="radio-inline">
-                        <input class="custom" type="radio" value="{{= customIndex }}" name="geocoding-result-{{= cid }}"{{% if (custom) { }} checked{{% } }}>
-                        Własne współrzędne
-                    </label>
-                </div>
-                <div class="col-md-2">
-                    <input type="text" class="custom-lat form-control lat-val" value="{{= lat }}">
-                </div>
-                <div class="col-md-2">
-                    <input type="text" class="custom-lng form-control lng-val" value="{{= lng }}">
-                </div>
-                <div class="col-md-2">
-                    <button class="btn btn-default show-on-map">Pokaż na mapie</button>
-                </div>
-            </div>
-        </li>
-
-    </script>
-
-    <script id="place-template" type="text/template">
-        <p class="list-group-item-heading" id="name">{{= name }}</p>
-        <p class="address">{{= address }}</p>
-        <div class="input-group">
-            <input type="text" class="form-control address-for-google" value="{{= address_for_google }}">
-                            <span class="input-group-btn">
-                                <button class="geocoding-trigger btn btn-default" type="button">Geokoduj</button>
-                            </span>
-        </div><!-- /input-group -->
-
-        <div class="row">
-            <div class="col-md-6"></div>
-            <div class="col-md-2">
-                Lat
-            </div>
-            <div class="col-md-2">
-                Lng
-            </div>
-            <div class="col-md-2">
             </div>
         </div>
-
-        <ul class="list-group geocoding-result">
-
-        </ul>
-
-        <div class="pull-right">
-            <button class="from-map btn btn-primary">Odczytaj z mapy</button>
-            <button class="save btn btn-primary">Zapisz</button>
-        </div>
-    </script>
-
-    <script id="pagination-template" type="text/template">
-        {{% _.each(pages, function (page) { }}
-        <li class="page-trigger{{% if (page.selected) { }} active{{% } else { }}{{% } }}" data-page="{{= page.no }}">
-            <a href="#">{{= page.label }}</a>
-        </li>
-        {{% }); }}
-    </script>
-
-    <script id="game-template" type="text/template">
-        <p>cokolwiek</p>
     </script>
 
         <script id="familiada-black-board-tpl" type="text/template">
-            <div id="board" class="board">
+            <div id="board" class="board points-a-view points-b-view">
                 <div class="board__validation">
                     <div class="board__validation--left">
-                        <div class="validation__wrapper">
+                        <div class="validation__wrapper chance-a-view">
 
                         </div>
                     </div>
                     <div class="board__validation--right">
-                        <div class="validation__wrapper">
+                        <div class="validation__wrapper chance-b-view">
 
                         </div>
                     </div>
@@ -153,7 +57,7 @@
                             2000
                         </span> punktów do zebrania!
                     </div>
-                    <div class="board__question__wrapper">
+                    <div class="board__question__wrapper question-view">
 
                     </div>
                 </div>
@@ -204,28 +108,89 @@
 
         </script>
 
-        <script id="admin-template" type="text/template">
+        <script id="admin-chance-template" type="text/template">
+        </script>
+        <script id="admin-points-template" type="text/template">
+        </script>
+        <script id="admin-team-template" type="text/template">
 
-            <div class="row">
-                <div class="col-md-2" id="admin-teamA">
+            <div class="panel {{= active ? 'panel-success' : 'panel-default' }}">
+                <div class="panel-heading">{{= name }}</div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span class="badge">{{= points }}</span>
+                            Punkty:
+                        </li>
+                        <li class="list-group-item">
+                            <span class="badge">{{= lostChances }}</span>
+                            Stracone szanse:
+                        </li>
+                    </ul>
+                    <p>
 
-                    {{= teamA.name }}
+                        <button type="button" class="btn btn-success activate-team" {{= active ? 'disabled="disabled"' : '' }}>Aktywuj</button>
 
+                    </p>
                 </div>
-                <div class="col-md-8" id="admin-question"></div>
-                <div class="col-md-2" id="admin-teamB">
 
-                    {{= teamB.name }}
+            </div>
 
+        </script>
+        <script id="admin-question-template" type="text/template">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">{{= question }}</div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        {{% _.each(answers, function (answer) { }}
+                            <li class="list-group-item answer{{= answer.revealed ? ' list-group-item-success' : ''}}" data-cid="{{= answer.cid }}">
+                                <span class="badge">{{= answer.points }}</span>
+                                {{= answer.answer }}
+                            </li>
+                        {{% }) }}
+                        <li class="list-group-item list-group-item-danger invalid-answer">
+                            Nieprawidłowa odpowiedź
+                        </li>
+                    </ul>
                 </div>
             </div>
 
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <span class="badge">14</span>
-                    Cras justo odio
-                </li>
-            </ul>
+        </script>
+
+        <script id="admin-round-template" type="text/template">
+
+            <h1>Runda {{= number }}
+                <small>
+                    {{% if (stage == 'race') { }}
+                        Wyścig drużyn
+                    {{% } }}
+
+                    {{% if (stage == 'answering') { }}
+                        Odpowiadanie na pytanie
+                    {{% } }}
+
+                    {{% if (stage == 'takeover') { }}
+                        Przejmowanie pytania
+                    {{% } }}
+                </small>
+            </h1>
+
+        </script>
+
+
+        <script id="admin-game-template" type="text/template">
+
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 round-view"></div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 points-a-view chance-a-view team-a-view"></div>
+                <div class="col-md-6 question-view"></div>
+                <div class="col-md-3 points-b-view chance-b-view team-b-view"></div>
+            </div>
 
         </script>
 
